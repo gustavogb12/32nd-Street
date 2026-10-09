@@ -11,7 +11,6 @@ var input_direction: Vector2 = Vector2.ZERO
 func  _ready() -> void:
 	hurtbox_shape.disabled = true
 
-
 func _physics_process(delta: float) -> void:
 	input_direction = Input.get_vector("move_left","move_right","move_up","move_down")
 	velocity = input_direction * speed
@@ -27,4 +26,4 @@ func  attack() -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	area.owner.queue_free()
+	EventBus.attacked.emit(self, area, 10)
