@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://r3l2anbirg3l" path="res://asset/tileset_01.png" id="1_xutm1"]
 [ext_resource type="PackedScene" uid="uid://doww0jae3aye8" path="res://scene/dummy.tscn" id="2_ewo1x"]
 [ext_resource type="Script" uid="uid://dqir2tdoepgif" path="res://script/camera_path_controller.gd" id="4_sjin7"]
+[ext_resource type="Script" uid="uid://mmfwyoam7xl3" path="res://script/health_display_component.gd" id="5_1jncy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjin7"]
 texture = ExtResource("1_xutm1")
@@ -29,6 +30,33 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0yc80"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0ofq"]
+bg_color = Color(0.267655, 0.30342373, 0.27513576, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.41887987, 0.22894508, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5qrys"]
+bg_color = Color(0.8627451, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_1jncy"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_r0ofq")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5qrys")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uo6t3"]
+
 [node name="Gym" type="Node2D" unique_id=524505118]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=2008620119]
@@ -42,8 +70,8 @@ speed = 600.0
 [node name="Dummy" parent="." unique_id=1713660021 instance=ExtResource("2_ewo1x")]
 position = Vector2(555, 342)
 
-[node name="Dummy2" parent="." unique_id=2133315151 instance=ExtResource("2_ewo1x")]
-position = Vector2(249, 302)
+[node name="Dummy2" parent="." unique_id=2110446149 instance=ExtResource("2_ewo1x")]
+position = Vector2(303, 305)
 
 [node name="CameraPath" type="Path2D" parent="." unique_id=149027451 node_paths=PackedStringArray("player")]
 curve = SubResource("Curve2D_xutm1")
@@ -55,3 +83,86 @@ stop_positions = Array[float]([0.0, 1562.5, 3125.0])
 position = Vector2(273, 180)
 
 [node name="Camera2D" type="Camera2D" parent="CameraPath/CameraTarget" unique_id=1573103812]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1497557676]
+
+[node name="EnemyPanel" type="PanelContainer" parent="HUD" unique_id=1522598639]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -177.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="HBox" type="HBoxContainer" parent="HUD/EnemyPanel" unique_id=1845436641]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="EnemyIcon" type="TextureRect" parent="HUD/EnemyPanel/HBox" unique_id=1835292791]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("PlaceholderTexture2D_0yc80")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/EnemyPanel/HBox" unique_id=64704319]
+layout_mode = 2
+
+[node name="EnemyNameLabel" type="Label" parent="HUD/EnemyPanel/HBox/VBox" unique_id=672400806]
+layout_mode = 2
+text = "Enemy Name BUG"
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="HUD/EnemyPanel/HBox/VBox" unique_id=1058752356]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 12)
+layout_mode = 2
+theme = SubResource("Theme_1jncy")
+value = 20.0
+show_percentage = false
+
+[node name="HealthDisplayComponent" type="Node" parent="HUD/EnemyPanel/HBox/VBox" unique_id=646382864 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar")]
+script = ExtResource("5_1jncy")
+watch_group = &"enemy"
+health_panel = NodePath("../../..")
+icon = NodePath("../../EnemyIcon")
+display_label = NodePath("../EnemyNameLabel")
+health_bar = NodePath("../EnemyHealthBar")
+metadata/_custom_type_script = "uid://mmfwyoam7xl3"
+
+[node name="PlayerPanel" type="PanelContainer" parent="HUD" unique_id=1542339680]
+offset_right = 123.0
+offset_bottom = 40.0
+
+[node name="HBox" type="HBoxContainer" parent="HUD/PlayerPanel" unique_id=179659895]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PlayerIcon" type="TextureRect" parent="HUD/PlayerPanel/HBox" unique_id=901434292]
+custom_minimum_size = Vector2(32, 32)
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("PlaceholderTexture2D_uo6t3")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/PlayerPanel/HBox" unique_id=1383326162]
+layout_mode = 2
+
+[node name="PlayerNameLabel" type="Label" parent="HUD/PlayerPanel/HBox/VBox" unique_id=1457486676]
+layout_mode = 2
+text = "Player BUG"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="HUD/PlayerPanel/HBox/VBox" unique_id=1069257269]
+custom_minimum_size = Vector2(50, 12)
+layout_mode = 2
+theme = SubResource("Theme_1jncy")
+value = 20.0
+show_percentage = false
+
+[node name="HealthDisplayComponent" type="Node" parent="HUD/PlayerPanel" unique_id=1919167353 node_paths=PackedStringArray("health_panel", "icon", "display_label", "health_bar")]
+script = ExtResource("5_1jncy")
+watch_group = &"player"
+health_panel = NodePath("..")
+icon = NodePath("../HBox/PlayerIcon")
+display_label = NodePath("../HBox/VBox/PlayerNameLabel")
+health_bar = NodePath("../HBox/VBox/PlayerHealthBar")
+metadata/_custom_type_script = "uid://mmfwyoam7xl3"

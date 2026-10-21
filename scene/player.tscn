@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" uid="uid://73anxe84vixv" path="res://script/player.gd" id="1_hjaqi"]
 [ext_resource type="Texture2D" uid="uid://caqnwncvh4d7u" path="res://icon.svg" id="1_xo3ru"]
+[ext_resource type="Script" uid="uid://wslk6sj78aq4" path="res://script/entity_component.gd" id="3_fvtld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xo3ru"]
 size = Vector2(30, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yc80"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkpy8"]
+size = Vector2(20, 29)
 
 [node name="Player" type="CharacterBody2D" unique_id=2103756938]
 script = ExtResource("1_hjaqi")
@@ -26,5 +30,21 @@ texture = ExtResource("1_xo3ru")
 position = Vector2(26, -36)
 shape = SubResource("RectangleShape2D_0yc80")
 debug_color = Color(2.0214916e-06, 0.63548636, 0.42040467, 0.41960785)
+
+[node name="EntityComponent" type="Node" parent="." unique_id=1715715967 node_paths=PackedStringArray("entity_parent", "hitbox") groups=["player"]]
+script = ExtResource("3_fvtld")
+entity_name = "Player"
+entity_icon = ExtResource("1_xo3ru")
+max_health = 200
+health = 200
+entity_parent = NodePath("..")
+hitbox = NodePath("../Hitbox")
+metadata/_custom_type_script = "uid://wslk6sj78aq4"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=194723854]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=59674057]
+position = Vector2(0, -40.5)
+shape = SubResource("RectangleShape2D_wkpy8")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

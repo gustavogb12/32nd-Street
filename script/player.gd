@@ -24,6 +24,5 @@ func  attack() -> void:
 	await  get_tree().create_timer(0.2).timeout
 	hurtbox_shape.disabled = true
 
-
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)

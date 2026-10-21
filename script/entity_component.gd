@@ -1,10 +1,16 @@
 class_name EntityComponent
-
 extends Node
 
-@export var entity_parent: Node
+signal  entity_died
+
+@export var entity_name: String
+@export var entity_icon: Texture2D
+@export var max_health: int = 100
 @export var health: int = 100
+@export var entity_parent: Node
 @export var hitbox: Area2D
+
+@onready var hurtbox_shape: CollisionShape2D = $"../Hutbox/CollisionShape2D"
 
 func _ready() -> void:
 	EventBus.attacked.connect(_on_attacked)
@@ -13,8 +19,10 @@ func _on_attacked(source: Node, target: Node, damage: float) -> void:
 	#print("Recebi de dano: ",damage)
 	if target == hitbox:
 		health -= damage
-		print("Vida: ", health)
+		EventBus.entity_attacked.emit(self)
+		#print("Vida: ", health)
 		if health <= 0:
-			entity_parent.queue_free()
+			entity_died.emit()
+			EventBus.attacked.disconnect(_on_attacked)
 	
 	#print(source,target,damage) 
