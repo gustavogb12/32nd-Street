@@ -1,3 +1,5 @@
+@icon("res://addons/at-icons/node/person_body.svg")
+
 class_name EntityComponent
 extends Node
 
@@ -14,6 +16,8 @@ signal  entity_died
 
 func _ready() -> void:
 	EventBus.attacked.connect(_on_attacked)
+	await get_tree().physics_frame
+	EventBus.entity_ready.emit(self)
 
 func _on_attacked(source: Node, target: Node, damage: float) -> void:
 	#print("Recebi de dano: ",damage)

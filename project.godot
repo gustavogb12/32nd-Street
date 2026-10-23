@@ -30,6 +30,10 @@ window/stretch/aspect="expand"
 
 project/assembly_name="Beat_em_Up"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/at-icons/plugin.cfg")
+
 [global_group]
 
 player=""
@@ -86,6 +90,16 @@ dash={
 "deadzone": 0.2,
 "events": []
 }
+
+[layer_names]
+
+2d_physics/layer_1="environment"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="prop"
+2d_physics/layer_5="collectable"
+2d_physics/layer_6="weapon"
+2d_physics/layer_7="hazard"
 
 [physics]
 

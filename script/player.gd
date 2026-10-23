@@ -9,6 +9,7 @@ var input_direction: Vector2 = Vector2.ZERO
 @onready var hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
 
 func  _ready() -> void:
+	EventBus.player_requested.connect(_on_player_requested)
 	hurtbox_shape.disabled = true
 
 func _physics_process(delta: float) -> void:
@@ -26,3 +27,6 @@ func  attack() -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)
+
+func _on_player_requested(enemy: Enemy) -> void:
+	enemy.player = self
