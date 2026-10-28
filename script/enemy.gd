@@ -27,7 +27,6 @@ func _physics_process(delta: float) -> void:
 	
 	target_acquired_elapsed += delta
 
-
 func _on_hutbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)
 

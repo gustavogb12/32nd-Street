@@ -14,7 +14,7 @@ size = Vector2(20, 29)
 
 [node name="Player" type="CharacterBody2D" unique_id=2103756938]
 collision_layer = 2
-collision_mask = 15
+collision_mask = 143
 script = ExtResource("1_hjaqi")
 speed = 250.0
 
