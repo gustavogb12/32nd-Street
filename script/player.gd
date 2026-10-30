@@ -7,6 +7,7 @@ extends CharacterBody2D
 var input_direction: Vector2 = Vector2.ZERO
 
 @onready var hurtbox_shape: CollisionShape2D = $Hurtbox/CollisionShape2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func  _ready() -> void:
 	EventBus.player_requested.connect(_on_player_requested)
@@ -21,9 +22,12 @@ func _physics_process(delta: float) -> void:
 		attack()
 
 func  attack() -> void:
+	animation_player.play("attack")
+	animation_player.animation_finished.connect(func(): animation_player.play("idle"), CONNECT_ONE_SHOT)
 	hurtbox_shape.disabled = false
 	await  get_tree().create_timer(0.2).timeout
 	hurtbox_shape.disabled = true
+
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)
