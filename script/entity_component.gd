@@ -4,6 +4,7 @@ class_name EntityComponent
 extends Node
 
 signal  entity_died
+signal damage_taken
 
 @export var entity_name: String
 @export var entity_icon: Texture2D
@@ -23,6 +24,7 @@ func _on_attacked(source: Node, target: Node, damage: float) -> void:
 	#print("Recebi de dano: ",damage)
 	if target == hitbox:
 		health -= damage
+		damage_taken.emit()
 		EventBus.entity_attacked.emit(self)
 		#print("Vida: ", health)
 		if health <= 0:

@@ -102,7 +102,7 @@ tile_set = SubResource("TileSet_lxkqy")
 tile_set = SubResource("TileSet_0yc80")
 
 [node name="Player" parent="." unique_id=2103756938 instance=ExtResource("1_bx025")]
-position = Vector2(24, 346)
+position = Vector2(32, 267)
 
 [node name="SpawnManager" type="Node2D" parent="." unique_id=1021433957]
 script = ExtResource("3_r0ofq")
@@ -110,6 +110,12 @@ metadata/_custom_type_script = "uid://0kadcwodaq7s"
 
 [node name="SpawnPoint" type="Marker2D" parent="SpawnManager" unique_id=814949297]
 position = Vector2(613, 270)
+script = ExtResource("4_7wdmr")
+entity_scene = ExtResource("5_5qrys")
+metadata/_custom_type_script = "uid://b5022gytd1gd7"
+
+[node name="SpawnPoint1" type="Marker2D" parent="SpawnManager" unique_id=1559941970]
+position = Vector2(613, 219)
 script = ExtResource("4_7wdmr")
 entity_scene = ExtResource("5_5qrys")
 metadata/_custom_type_script = "uid://b5022gytd1gd7"

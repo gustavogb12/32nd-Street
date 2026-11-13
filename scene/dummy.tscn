@@ -3,15 +3,18 @@
 [ext_resource type="Script" uid="uid://cxw5w6m21vkxx" path="res://script/enemy.gd" id="1_mtq4m"]
 [ext_resource type="Texture2D" uid="uid://caqnwncvh4d7u" path="res://icon.svg" id="1_rdt0c"]
 [ext_resource type="Script" uid="uid://wslk6sj78aq4" path="res://script/entity_component.gd" id="2_nljr0"]
+[ext_resource type="AudioStream" uid="uid://bc0ox41vw6yhv" path="res://asset/hit01.sfxr" id="4_8fkih"]
+[ext_resource type="AudioStream" uid="uid://418k5o1j3l0h" path="res://asset/hit02.sfxr" id="5_qh2oe"]
+[ext_resource type="AudioStream" uid="uid://dlt7bk7c2m3ph" path="res://asset/hit3.sfxr" id="6_yhc6u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nljr0"]
-size = Vector2(30, 17)
+size = Vector2(36, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yc80"]
-size = Vector2(48, 43)
+size = Vector2(34, 29)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fvtld"]
-radius = 21.0
+radius = 21.095022
 
 [sub_resource type="Curve" id="Curve_qh2oe"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5017182, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -43,6 +46,13 @@ scale_curve = SubResource("CurveTexture_mtq4m")
 color = Color(0, 1, 0, 1)
 alpha_curve = SubResource("CurveTexture_8fkih")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0yc80"]
+random_pitch = 3.577826
+streams_count = 3
+stream_0/stream = ExtResource("4_8fkih")
+stream_1/stream = ExtResource("5_qh2oe")
+stream_2/stream = ExtResource("6_yhc6u")
+
 [node name="Dummy" type="CharacterBody2D" unique_id=1713660021]
 y_sort_enabled = true
 collision_layer = 4
@@ -54,11 +64,12 @@ position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_nljr0")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=944342158]
-position = Vector2(0, -55)
-scale = Vector2(0.21875001, 0.859375)
+position = Vector2(-0.99999976, -58.000004)
+scale = Vector2(0.2578125, 0.906)
 texture = ExtResource("1_rdt0c")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1641451436]
+position = Vector2(0, -18)
 collision_layer = 4
 collision_mask = 66
 
@@ -76,11 +87,12 @@ hitbox = NodePath("../Hitbox")
 metadata/_custom_type_script = "uid://wslk6sj78aq4"
 
 [node name="Hutbox" type="Area2D" parent="." unique_id=1388374191]
+position = Vector2(0, -41)
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hutbox" unique_id=620762782]
-position = Vector2(53, -38)
+position = Vector2(47, -47)
 shape = SubResource("CircleShape2D_fvtld")
 
 [node name="DeathParticles" type="GPUParticles2D" parent="." unique_id=1148288071]
@@ -94,6 +106,10 @@ process_material = SubResource("ParticleProcessMaterial_0yc80")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=579457773]
 debug_enabled = true
 
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="." unique_id=1342037024]
+stream = SubResource("AudioStreamRandomizer_0yc80")
+
+[connection signal="damage_taken" from="EntityComponent" to="." method="_on_damage_taken"]
 [connection signal="entity_died" from="EntityComponent" to="." method="_on_entity_died"]
 [connection signal="entity_died" from="EntityComponent" to="DeathParticles" method="restart"]
 [connection signal="area_entered" from="Hutbox" to="." method="_on_hutbox_area_entered"]

@@ -19,6 +19,9 @@ var current_state: State = State.IDLE
 @onready var hurtbox: Area2D = $Hurtbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var figter_sprite: Sprite2D = $FigterSprite
+@onready var hitbox: Area2D = $Hitbox
+@onready var hitbox_shape: CollisionShape2D = $Hitbox/CollisionShape2D
+@onready var sfx_hit: AudioStreamPlayer2D = $SFXHit
 
 func  _ready() -> void:
 	EventBus.player_requested.connect(_on_player_requested)
@@ -50,8 +53,10 @@ func _physics_process(delta: float) -> void:
 				
 				if figter_sprite.flip_h == true:
 					hurtbox.scale.x = -1
+					hitbox.scale.x = -1
 				else:
 					hurtbox.scale.x = 1
+					hitbox_shape.scale.x = 1
 		State.ATTACK:
 			pass
 		State.JUMP:
@@ -71,7 +76,6 @@ func  attack() -> void:
 	current_state = State.ATTACK
 	
 
-
 func _on_attack_finished(anim_name:StringName) -> void:
 	animation_player.play("idle")
 	current_state = State.WALK
@@ -79,5 +83,15 @@ func _on_attack_finished(anim_name:StringName) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)
 
+
 func _on_player_requested(enemy: Enemy) -> void:
 	enemy.player = self
+
+func hit_feedback() -> void:
+	sfx_hit.play()
+	var tween: Tween = create_tween()
+	tween.set_loops(3)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.4). from(Color.WHITE * 8)
+
+func _on_damage_taken() -> void:
+	hit_feedback()

@@ -107,11 +107,10 @@ script = ExtResource("1_hjaqi")
 speed = 250.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=265303199]
-position = Vector2(0, -9)
+position = Vector2(0, 55)
 shape = SubResource("RectangleShape2D_xo3ru")
 
 [node name="FigterSprite" type="Sprite2D" parent="." unique_id=1336132101]
-position = Vector2(9, -28)
 texture = ExtResource("2_ct4mp")
 hframes = 5
 vframes = 2
@@ -121,7 +120,7 @@ collision_layer = 2
 collision_mask = 29
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=531558424]
-position = Vector2(47, -53)
+position = Vector2(45, 0)
 shape = SubResource("RectangleShape2D_0yc80")
 debug_color = Color(2.0214916e-06, 0.63548636, 0.42040467, 0.41960785)
 
@@ -140,11 +139,13 @@ collision_layer = 2
 collision_mask = 68
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=59674057]
-position = Vector2(0, -40.5)
 shape = SubResource("RectangleShape2D_wkpy8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2122067689]
 libraries/ = SubResource("AnimationLibrary_hp4bs")
 autoplay = &"idle"
 
+[node name="SFXHit" type="AudioStreamPlayer2D" parent="." unique_id=1963605081]
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="damage_taken" from="EntityComponent" to="." method="_on_damage_taken"]
