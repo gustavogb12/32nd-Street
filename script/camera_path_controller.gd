@@ -1,6 +1,7 @@
 extends Path2D
 
 signal stopped
+signal moved
 
 enum CameraState{STOP, MOVE}
 
@@ -39,7 +40,6 @@ func handle_move(delta: float) -> void:
 	if camera_target.progress >= stop_positions[stop_index]:
 		current_state = CameraState.STOP
 		stopped.emit()
-	
 
 func _on_horde_finished() -> void:
 	stop_index += 1
@@ -48,3 +48,4 @@ func _on_horde_finished() -> void:
 		#TODO: Fim da fase, torcar de fase
 		return
 	current_state = CameraState.MOVE
+	moved.emit()

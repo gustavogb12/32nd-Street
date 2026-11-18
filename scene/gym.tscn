@@ -8,6 +8,10 @@
 [ext_resource type="Script" uid="uid://mmfwyoam7xl3" path="res://script/health_display_component.gd" id="5_1jncy"]
 [ext_resource type="PackedScene" uid="uid://doww0jae3aye8" path="res://scene/dummy.tscn" id="5_5qrys"]
 [ext_resource type="Texture2D" uid="uid://d0rwpqrdhp3uh" path="res://asset/cross.png" id="5_r0ofq"]
+[ext_resource type="Texture2D" uid="uid://f08tqvoco1ck" path="res://asset/go_arrow.png" id="9_jwkq5"]
+[ext_resource type="Script" uid="uid://m7flg0iny8nn" path="res://script/audio_director.gd" id="9_uo6t3"]
+[ext_resource type="Script" uid="uid://dvxpote20vseq" path="res://script/go_arrow.gd" id="10_sef8e"]
+[ext_resource type="AudioStream" uid="uid://d0qx3skrlm3ne" path="res://asset/go.sfxr" id="11_0m6vw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r0ofq"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
@@ -179,6 +183,7 @@ stop_positions = Array[float]([0.0, 1562.5, 2349.02, 3125.0])
 position = Vector2(273, 180)
 
 [node name="Camera2D" type="Camera2D" parent="CameraPath/CameraTarget" unique_id=1573103812]
+position_smoothing_enabled = true
 
 [node name="CameraBounds" type="StaticBody2D" parent="CameraPath/CameraTarget/Camera2D" unique_id=1687114000]
 position = Vector2(-330, 0)
@@ -308,5 +313,28 @@ hide_on_ready = false
 refresh_on_ready = true
 metadata/_custom_type_script = "uid://mmfwyoam7xl3"
 
+[node name="GoArrow" type="TextureRect" parent="HUD" unique_id=1764424816]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -64.0
+offset_right = -48.0
+offset_bottom = 64.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("9_jwkq5")
+script = ExtResource("10_sef8e")
+
+[node name="GoSound" type="AudioStreamPlayer" parent="HUD/GoArrow" unique_id=822092727]
+stream = ExtResource("11_0m6vw")
+
+[node name="AudioDirector" type="Node" parent="." unique_id=2018367730]
+script = ExtResource("9_uo6t3")
+
 [connection signal="horde_finished" from="SpawnManager" to="CameraPath" method="_on_horde_finished"]
+[connection signal="moved" from="CameraPath" to="HUD/GoArrow" method="_on_camera_path_moved"]
 [connection signal="stopped" from="CameraPath" to="SpawnManager" method="_on_camera_path_stopped"]
+[connection signal="stopped" from="CameraPath" to="HUD/GoArrow" method="_on_camera_path_stopped"]

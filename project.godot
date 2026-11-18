@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Beat_em_Up"
-run/main_scene="uid://cv3c4g6mtub3l"
+run/main_scene="uid://bxyrn2bd73hcn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 EventBus="*uid://b2ywwqho73nk3"
+Soundtrack="*uid://bx2i3kd0l7340"
 
 [display]
 

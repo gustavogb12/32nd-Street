@@ -68,13 +68,12 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-
 func  attack() -> void:
 	velocity = Vector2.ZERO
 	animation_player.play("attack")
 	animation_player.animation_finished.connect(_on_attack_finished, CONNECT_ONE_SHOT)
 	current_state = State.ATTACK
-	
+
 
 func _on_attack_finished(anim_name:StringName) -> void:
 	animation_player.play("idle")
@@ -83,15 +82,17 @@ func _on_attack_finished(anim_name:StringName) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	EventBus.attacked.emit(self, area, 10)
 
-
 func _on_player_requested(enemy: Enemy) -> void:
 	enemy.player = self
 
 func hit_feedback() -> void:
 	sfx_hit.play()
 	var tween: Tween = create_tween()
+	
 	tween.set_loops(3)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.4). from(Color.WHITE * 8)
+	
+	
 
 func _on_damage_taken() -> void:
 	hit_feedback()

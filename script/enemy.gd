@@ -48,12 +48,13 @@ func _on_entity_died() -> void:
 func hit_feedback() -> void:
 	sfx_hit.play()
 	var tween: Tween = create_tween()
+	
 	tween.set_parallel(true)
 	tween.set_loops(3)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.4).from(Color.WHITE * 8)
 	tween.set_loops(1)
 	#tween.tween_property(self, "scale", )
-	
+
 
 
 func _on_damage_taken() -> void:

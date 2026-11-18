@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bxyrn2bd73hcn"]
+
+[ext_resource type="Script" uid="uid://b0kqbfgldey6a" path="res://script/main_menu.gd" id="1_3er1b"]
+
+[node name="MainMenu" type="Control" unique_id=1290971007]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3er1b")
+
+[node name="GameTitle" type="RichTextLabel" parent="." unique_id=2119993757]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = -73.0
+offset_right = 46.5
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[wave] Beat em up"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Creator" type="RichTextLabel" parent="." unique_id=479302347]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.5
+offset_top = -24.0
+offset_right = 137.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Criado por: Gustavo Godinho"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=462884809]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = -33.0
+offset_right = 43.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="Button" parent="VBoxContainer" unique_id=1344779272]
+layout_mode = 2
+text = "Jogar"
+
+[node name="Fullscreen" type="Button" parent="VBoxContainer" unique_id=1950027001]
+layout_mode = 2
+text = "Tela cheia"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Fullscreen" to="." method="_on_fullscreen_pressed"]
